@@ -96,9 +96,10 @@ vector<int> FindDocuments(const vector<vector<string>>& documents, const set<str
     vector<int> matched_documents;
     int x = 0;
     for ( const auto& l : documents) {
-        x += 1;
+        
         if (MatchDocument( l, ParseQuery(query, stop_words))){
             matched_documents.push_back(x);
+    x += 1;
         }
     }
     return matched_documents;

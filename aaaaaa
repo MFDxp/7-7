@@ -94,12 +94,12 @@ bool MatchDocument(const vector<string>& document_words, const set<string>& quer
 // Стоп-слова исключаются из поиска
 vector<int> FindDocuments(const vector<vector<string>>& documents, const set<string>& stop_words, const string& query) {
     vector<int> matched_documents;
-    int x = 0;
+    int document_id = 0;
     for ( const auto& l : documents) {
         
         if (MatchDocument( l, ParseQuery(query, stop_words))){
             matched_documents.push_back(x);
-    x += 1;
+    document_id += 1;
         }
     }
     return matched_documents;

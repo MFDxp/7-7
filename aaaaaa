@@ -77,18 +77,16 @@ set<string> ParseQuery(const string& text, const set<string>& stop_words) {
 int MatchDocument(const pair<int, vector<string>>& content, 
                   const set<string>& query_words) {
     map <string, int> x;
-    int vozvrat=0;
-    for(const auto& mir : content){
-        for (const string& word : mir.second){
-        if (query_words.count(word) != 0) {
-            if(x.at(word) < 1){
-                ++x.at(word);
-                ++vozvrat;
+    int v = 0;
+    for(const auto& mir : content.second){
+        if (query_words.count(mir)) {
+            if(x[mir] < 1){
+                ++x[mir];
+                ++v;
             }
         }
     }
-    }
-    return vozvat;
+    return v;
 }
 
 // Для каждого найденного документа возвращает его id
@@ -97,11 +95,16 @@ vector<pair<int, int>> FindDocuments(const vector<pair<int, vector<string>>>& do
                                      const string& query) {
 
     const set<string> query_words = ParseQuery(query, stop_words);
-    vector <pair <int><int>> matched_documents;
+    vector <pair <int, int>> matched_documents;
+    pair <int, int> matched_document;
+    int rel=0;
     for (const pair<int, vector<string>>& document : documents) {
         if (MatchDocument(document, query_words)) {
-            matched_documents.push_back(document.first);
+            rel = MatchDocument(document, query_words);
+            matched_document = {document.first, rel};
+            matched_documents.push_back(matched_document);
         }
+        
     }
     return matched_documents;
 }
@@ -123,4 +126,5 @@ int main() {
         cout << "{ document_id = "s << document_id << ", relevance = "s << relevance << " }"s
              << endl;
     }
+}
 }

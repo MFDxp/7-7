@@ -89,7 +89,6 @@ int MatchDocument(const pair<int, vector<string>>& content,
     return v;
 }
 
-// Для каждого найденного документа возвращает его id
 vector<pair<int, int>> FindDocuments(const vector<pair<int, vector<string>>>& documents,
                                      const set<string>& stop_words,
                                      const string& query) {
@@ -113,7 +112,6 @@ int main() {
     const string stop_words_joined = ReadLine();
     const set<string> stop_words = ParseStopWords(stop_words_joined);
 
-    // Считываем документы
     vector<pair<int, vector<string>>> documents;
     const int document_count = ReadLineWithNumber();
     for (int document_id = 0; document_id < document_count; ++document_id) {
@@ -121,7 +119,6 @@ int main() {
     }
 
     const string query = ReadLine();
-    // Выводим результаты поиска по запросу query
     for (auto [document_id, relevance] : FindDocuments(documents, stop_words, query)) {
         cout << "{ document_id = "s << document_id << ", relevance = "s << relevance << " }"s
              << endl;
